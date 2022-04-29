@@ -1,17 +1,17 @@
 import { Link, Route, Routes } from "react-router-dom";
 
-import { About } from "./pages/About";
+import { Detail } from "./pages/Detail/Detail";
 import { Home } from "./pages/Home/Home";
+import { Login } from "./pages/login/Login";
 import React from 'react'
-import { Users } from "./pages/Users";
 
 export const MainRouter = () => {
   return (
   
     <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/user" element={<Users />} />
-    <Route path="/about" element={<About />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/detail" element={<Detail />} />
   </Routes>
   )
 }

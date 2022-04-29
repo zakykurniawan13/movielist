@@ -1,4 +1,4 @@
-import "./Header.css";
+import "./Header.scss";
 
 import React from "react";
 import avatar from "././../../assets/images/avatar.png";
@@ -14,7 +14,7 @@ export const Header = () => {
             <img className="search-logo" src={searchLogo} />
             <input
               className="text-input"
-              type="text"
+              type="text" 
               placeholder="Search Movie Here"
             />
           </div>

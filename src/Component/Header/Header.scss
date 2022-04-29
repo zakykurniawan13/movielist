@@ -18,7 +18,7 @@ padding: 5px;
   height: 33px;
   width: 463px;
   border-radius: 50px;
-  background-color: black;
+  background-color: #181717;
   align-items: center;
 }
 .text-input{
@@ -26,6 +26,10 @@ padding: 5px;
   background-color: transparent;
   padding: 0 10px;
   border: none;
+  
+}
+.text-input{
+  outline: none;
 }
 .search-logo{
   width: 20px;

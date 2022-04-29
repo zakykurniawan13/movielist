@@ -1,0 +1,29 @@
+.main-detail-container{
+    display:flex;
+    flex: 1;
+    position: relative;
+}
+.main-detail{
+    display: flex;
+    flex: 1;
+    position: absolute;
+    flex-direction: column;
+    color: white;
+}
+.main-detail-rating{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+.main-detail-rating-title{
+    margin-left: 20px;
+}
+.main-detail-extraction{
+    opacity: 0.1;
+}
+.star-logo{
+    width: 15px;
+}
+.main-detail-title2{
+    margin-top: 20px;
+}
