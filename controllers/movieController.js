@@ -1,19 +1,5 @@
 const { default: axios } = require("axios");
-
-
-// app.get('/movie/:id',async (req,res) => {
-//     const id = req.params.id
-//     try {
-//         const response = await axios.get('https://api.themoviedb.org/3/movie/'+id, {
-//             params: {
-//                 api_key: "3308e162386788cc29ba57ad419bcb89"
-//             }
-//         });
-//         res.status(200).json(response.data)
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   })
+require('dotenv').config()
 
 const movieController = {
     getTopRated: async (req,res)=>{
@@ -22,9 +8,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/top_rated', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/top_rated', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -46,9 +32,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/popular', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -70,9 +56,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/now_playing', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -94,9 +80,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/latest', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/latest', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -118,9 +104,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id+'/recommendations', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id+'/recommendations', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -143,9 +129,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id+'/similiar', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id+'/similiar', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -167,9 +153,9 @@ const movieController = {
         
         try {
             
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id+'/reviews', {
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id+'/reviews', {
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -189,9 +175,9 @@ const movieController = {
         const id = req.params.id
         const query = req.query
         try {
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id,{
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id,{
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -212,9 +198,9 @@ const movieController = {
         const id = req.params.id
         const query = req.query
         try {
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id+'/rating',{
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id+'/rating',{
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){
@@ -235,9 +221,9 @@ const movieController = {
         const id = req.params.id
         const query = req.query
         try {
-            const response = await axios.get('https://api.themoviedb.org/3/movie/'+id+'/rating',{
+            const response = await axios.get(process.env.API_MOVIE_DB + '/'+id+'/rating',{
                 params: {...query,
-                    api_key: "3308e162386788cc29ba57ad419bcb89"}
+                    api_key: process.env.API_KEY}
             })
 
             if(!response){

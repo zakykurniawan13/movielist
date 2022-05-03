@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const {getTopRated,getPopular,getNowPlaying,getLatest,getDetails,getRecommendations,getReviews,getSimiliarMovies,rateMovie,deleteRating} = require('../controllers/movieController')
+const {getTopRated,getPopular,getNowPlaying,getLatest,getDetails,getRecommendations,getReviews,getSimiliarMovies} = require('../controllers/movieController')
 
 router.get('/top_rated', getTopRated)
-
 router.get('/popular', getPopular)
 router.get('/now_playing', getNowPlaying)
 router.get('/latest', getLatest)
