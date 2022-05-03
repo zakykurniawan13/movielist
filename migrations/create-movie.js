@@ -17,6 +17,9 @@ module.exports = {
       release_date: {
         type: Sequelize.DATE
       },
+      overview: {
+        type: Sequelize.STRING
+      },
       poster_path: {
         type: Sequelize.STRING
       },

@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     original_language: DataTypes.STRING,
     release_date: DataTypes.DATE,
+    overview: DataTypes.STRING,
     poster_path: DataTypes.STRING,
     backdrop_path: DataTypes.STRING,
     vote_count: DataTypes.INTEGER,

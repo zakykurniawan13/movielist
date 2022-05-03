@@ -1,3 +1,11 @@
 ###
 POST http://localhost:2000/watchlist/addMovie/550?userId=1
 Content-Type: application/json
+
+###
+GET http://localhost:2000/watchlist/getWatchlist?userId=1
+Content-Type: application/json
+
+###
+DELETE http://localhost:2000/watchlist/deleteMovie/550?userId=1
+Content-Type: application/json
