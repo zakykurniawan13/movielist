@@ -1,63 +1,82 @@
+require('dotenv').config()
+const {User, Movie} = require('../models')
+const { default: axios } = require("axios");
 
+const watchlistController = {
+    addMovie: async (req,res)=>{
+        const {movieId} = req.params
+        const {userId} = req.query
+        try {
+            
+            const user = await User.findOne({
+                where: {
+                    id: userId
+                }
+            })
+            
+            if(!user){
+                return res.status(500).json({
+                    status: 'Access Denied',
+                    message: 'You do not have access',
+                    result: ''
+                })
+            }
+            
+            const {data} = await axios.get(process.env.API_MOVIE_DB + '/' + movieId,{
+                params: {api_key: process.env.API_KEY}
+            })
 
-// MOVIE - BOOKMARK - USER
+            if(!data){
+                return res.status(404).json({
+                    status: "not found",
+                    message: "movie does not exist",
+                    result: {}
+                })
+            }
+            
+            let movie = await Movie.findOne({
+                where: {
+                    title: data.title
+                }
+            })
 
-// persiapan
+            if(!movie){
+                movie = await Movie.create({...data})
 
-// MOVIE TABLE:
+            }
+            console.log(movie, 'asdasd')
 
-// id
-// title
-// original_language
-// release_date
-// poster_path
-// backdrop_path
-// vote_count
-// vote_average
-// overview
+            if(!movie){
+                return res.status(500).json({
+                    status: "Internal Server Error",
+                    message: "Failed to dump movie data to database",
+                    result: {}
+                })
+            }
+            
+            const watchlist = await user.addMovie(movie, {through: 'watchlist'})
 
+            if(watchlist[0] == 0){
+                return res.status(400).json({
+                    status: "Bad Request",
+                    message: "Failed to add movie to watchlist. Movie is already added in the watchlist",
+                    result: {}
+                })
+            }
 
-// USER TABLE:
-// id
-// name
-// username
-// email
-// password
-// avatar_path
-// backdrop_path
+            return res.status(201).json({
+                    status: "success",
+                    message: "successfully added movie to watchlist",
+                    result: watchlist
+                })
+        } catch (error) {
+            res.status(500).json({
+                status: "Internal Server Error",
+                message: error.message,
+                result: {}
+            })
+        }
+    }
+}
 
-
-
-
-
-// Jika klik bookmark, maka jalankan:
-// 1. find movie id (body)
-// 2. create row baru di many to many: User.addMovie(...movie)
-// 3. 
-
-
-
-/* ADD NEW BOOKMARK
-
-1. GET user = await User.findOne({where: {id:user.id}})
-2. GET movie yang mau di bookmark. Masukkan informasinya ke dalam variable bernama movie.
-3. Buat row baru di tabel movie: Movie.create(...movie).
-4. Buat row baru di tabel bookmark: User.addMovie(movie)
-
-GET BOOKMARK
-
-1. Ambil user_id dari user yang sedang login
-2. Jalankan fungsi: User.findOne({include: Movie, as: favorites}) 
-
-DELETE BOOKMARK
-
-1. Ambil user_id
-2. Ambil movie_id
-3. jalankan fungsi: User_Bookmark({where: {
-    user_id: userId,
-    movie_id: movieId
-}})
-
-
-
-*/
+module.exports = watchlistController

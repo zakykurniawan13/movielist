@@ -1,0 +1,3 @@
+###
+POST http://localhost:2000/watchlist/addMovie/550?userId=1
+Content-Type: application/json

@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const {addMovie} = require('../controllers/watchlistController')
 
-router.post('/addBookmark', addBookmark)
-router.get('/getBookmark/:id', getBookmark)
-router.update('/deleteBookmark/:id', deleteBookmark)
+router.post('/addMovie/:movieId', addMovie)
+// router.get('/getBookmark/:id', getBookmark)
+// router.update('/deleteBookmark/:id', deleteBookmark)
+
+module.exports = router
