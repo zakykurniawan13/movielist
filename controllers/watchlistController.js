@@ -1,5 +1,5 @@
 require('dotenv').config()
-const {User, Movie, Watchlist} = require('../models')
+const {User, Movie} = require('../models')
 const { default: axios } = require("axios");
 
 const watchlistController = {
