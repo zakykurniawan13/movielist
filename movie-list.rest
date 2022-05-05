@@ -1,15 +1,37 @@
 ###
 POST http://localhost:2000/watchlist/addMovie/550?userId=1
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJheXVBQWppUGFtdW5na2FzQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE2NTE3MjIwMTd9.qZsZRvOslvx3UKbMfmdqfqDfKzDNBYjxllHXCpOQWrE
 
 ###
 GET http://localhost:2000/watchlist/getWatchlist?userId=1
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJheXVBQWppUGFtdW5na2FzQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE2NTE3MjIwMTd9.qZsZRvOslvx3UKbMfmdqfqDfKzDNBYjxllHXCpOQWrE
 
 ###
 DELETE http://localhost:2000/watchlist/deleteMovie/550?userId=1
 Content-Type: application/json
 
 ###
-GET http://localhost:2000/search/person?query=caprio
+GET http://localhost:2000/search/movie?query=fight
 Content-Type: application/json
+
+###
+POST http://localhost:2000/user/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Bayu Aji Pamungkas",
+    "username": "baayuaji__",
+    "email": "bayuAAjiPamungkas@gmail.com",
+    "password": "bayu123"
+}
+
+
+###
+POST http://localhost:2000/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bayuaaJiPamungkas@gmail.com",
+    "password": "bayu123"
+}
+
