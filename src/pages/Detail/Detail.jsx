@@ -1,18 +1,60 @@
 import "./Detail.scss";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Layout } from "../../layout/Layout";
-import chris from "../../assets/images/chris.jpg";
-import extdetail from "../../assets/images/extractiondetail.jpg";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export const Detail = () => {
-  const [rating, setRating] = useState(4);
+  //untuk mengambil data yang di lempar dari navigasi
+  const { state } = useLocation();
+  const { id } = state;
+  //
 
-  const handleRating = () => {
+  const [detailMovie, setDetailMovie] = useState([]);
+  const [credit, setCredit] = useState([]);
+
+  const getDetailMovie = async () => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=f4cf4882bb4a1025d54e7abd91962ecc&language=en-US`,
+        { headers }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        setDetailMovie(response.data);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
+  const getCredit = async () => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=f4cf4882bb4a1025d54e7abd91962ecc&language=en-US`,
+        { headers }
+      );
+      if (response.status === 200){
+        console.log(response.data);
+        setCredit(response.data);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
+  const handleRating = (rating) => {
     let newRating = [];
     for (let i = 0; i < 5; i++) {
-      if (i < rating) {
+      if (i < rating - 1) {
         newRating.push(
           <div className="rating-star">
             <img
@@ -32,23 +74,29 @@ export const Detail = () => {
         );
       }
     }
+
     return newRating;
   };
+
+  useEffect(() => {
+    getDetailMovie();
+    getCredit();
+  }, []);
   return (
     <Layout>
       <div className="main-detail-container">
-        <img className="main-detail-extraction" src={extdetail} />
+        <img className="main-detail-extraction" src={`https://image.tmdb.org/t/p/w500${detailMovie.backdrop_path}`} />
         <div className="main-detail">
-          <div className="main-detail-title1"> Sin City</div>
+          <div className="main-detail-title1">{detailMovie.title}</div>
           <div className="main-detail-rating">
-            {handleRating()}
+            {handleRating(detailMovie.vote_average / 2)}
             <div
               className="main-detail-rating-title"
               style={{
                 color: "white",
               }}
             >
-              4.3
+              {detailMovie.vote_average / 2}
             </div>
             <div
               className="main-detail-rating-title"
@@ -58,25 +106,32 @@ export const Detail = () => {
             >
               /5
             </div>
-            <div className="main-detail-rating-title">Thriller</div>
-            <div className="main-detail-rating-title"> 2h 4min</div>
-            <div className="main-detail-rating-title"> 2005</div>
-            <div
-              className="main-detail-rating-title"
-              style={{
-                border: "solid 1px rgba(135, 135, 135, 0.68)",
-                padding: "1px 5px",
-              }}
-            >
-              18+
+            
+            {/* jika data detailMovie.genres belum ada maka tidak maping data genres */}
+            {detailMovie.genres && detailMovie.genres.map((item) => (
+              <div className="main-detail-rating-title">{item.name}</div>
+            ))}
+
+            <div className="main-detail-rating-title">
+              {detailMovie.runtime} min
             </div>
+            <div className="main-detail-rating-title">
+              {" "}
+              {detailMovie.release_date}
+            </div>
+            {detailMovie.adult === true && (
+              <div
+                className="main-detail-rating-title"
+                style={{
+                  border: "solid 1px rgba(135, 135, 135, 0.68)",
+                  padding: "1px 5px",
+                }}
+              >
+                18+
+              </div>
+            )}
           </div>
-          <div className="main-detail-title2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-            neque voluptatibus, optio excepturi placeat quas, dolor a omnis
-            nobis veniam cupiditate pariatur sint ratione nesciunt maxime minus
-            iure amet? Fugiat.
-          </div>
+          <div className="main-detail-title2">{}</div>
           <div className="main-detail-title3">
             <div className="main-detail-title3-1">PLAY MOVIE</div>
             <div className="main-detail-title3-2">WATCH LATER</div>
@@ -85,53 +140,23 @@ export const Detail = () => {
             <div className="credit-cast">
               <div className="main-detail-title4-1">CAST</div>
               <div className="cast-list">
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
+                {credit.cast && credit.cast.map((item) => (
+                  <div className="cast">
+                    {/* tanda `` untuk menggabungkan string dengan variabel */}
+                  <img className="cast-img" src={`https://image.tmdb.org/t/p/w500${item.profile_path}`} />
+                  <div className="cast-name">{item.name}</div>
                 </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
-                <div className="cast">
-                  <img className="cast-img" src={chris} />
-                  <div className="cast-name">Chriss hamsowrd</div>
-                </div>
+                ))}
               </div>
             </div>
 
             <div className="credit-director">
               <div className="main-detail-title4-1">DIRECTED BY</div>
-              <div className="directed">Jon Belion</div>
-              <div className="directed">Adam Levine</div>
+              {/* cara mapping data credit.crew */}
+              {detailMovie.production_companies && detailMovie.production_companies.map((item) => (
+                <div className="directed">{item.name}</div>
+              ))}
+              
             </div>
           </div>
         </div>

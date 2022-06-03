@@ -1,39 +1,38 @@
-import "./Home.scss";
+import "./genre.scss";
 
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Layout } from "../../layout/Layout";
-import armydeadmovie from "../../assets/images/armydead.jpg";
 import axios from "axios";
-import brightmovie from "../../assets/images/bright.jpg";
-import extraction2movie from "../../assets/images/extraction2.jpg";
-import extractionmovie from "../../assets/images/extraction.jpg";
 import foto1 from "../../assets/images/foto1.png";
-import rednoticemovie from "../../assets/images/red notice.jpg";
-import spidermanmovie from "../../assets/images/spiderman.jpg";
-import { useNavigate } from "react-router-dom";
 
-export const Home = () => {
-  //untuk berpindah halaman
+export const Genre = () => {
   let navigate = useNavigate();
+  //untuk mengambil data yang di lempar dari navigasi
+  const { state } = useLocation();
+  const { id, name } = state;
   //
-  
-  const [moviesTrending, setMoviesTrending] = useState([]);
+
+  const [moviesByGenre, setMoviesByGenre] = useState([]);
   const [recent, setRecent] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [genreId, setGenreId] = useState(id);
+  const [genreName, setGenreName] = useState(name);
 
   const headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "appplication.json",
   };
 
-  const getMovieTrending = async () => {
+  const getMovieByGenre = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/movie/week?api_key=f4cf4882bb4a1025d54e7abd91962ecc",
+        `https://api.themoviedb.org/3/discover/movie?api_key=f4cf4882bb4a1025d54e7abd91962ecc&with_genres=${genreId}`,
         { headers }
       );
       if (response.status === 200) {
-        setMoviesTrending(response.data.results);
+        console.log(response);
+        setMoviesByGenre(response.data.results);
       }
     } catch (error) {
       console.log(error, "error");
@@ -76,43 +75,32 @@ export const Home = () => {
     });
   };
 
-  const goToMovieByGenre = (id, name) => {
-    //navigasi dengan membawa data object
-    navigate(`/genre`, {
-      state: {
-        id,
-        name,
-      },
-    });
-
-    //navigasi tanpa data
-    // navigate(`/genre`);
-  }
+  const handleGenreId = (id, name) => {
+    setGenreId(id);
+    setGenreName(name);
+  };
 
   useEffect(() => {
-    getMovieTrending();
     getRecent();
     getGenre();
   }, []);
+
+  //useEffect dengan array terisi untuk menjadi parameter trigger ketika value di array berubah
+  useEffect(() => {
+    getMovieByGenre();
+  }, [genreId]);
 
   return (
     <Layout>
       <div className="main-container">
         <div className="main-left">
-          <div className="main-home">
-            <img className="main-home-foto" src={foto1} />
-            <div className="main-home-foto-title">
-              {" "}
-              Watch Your Favourites Movie
-            </div>
-          </div>
           <div className="main-home-trending">
             <div className="main-home-trending-header">
-              <div className="main-home-trending-title">Trending Movie</div>
+              <div className="main-home-trending-title">{genreName}</div>
               <div className="main-home-trending-subtitle">See all</div>
             </div>
             <div className="movie-list-trending">
-              {moviesTrending.map((item) => (
+              {moviesByGenre.map((item) => (
                 <div className="card-movie" onClick={() => goDetail(item.id)}>
                   <img
                     className="card-movie-foto"
@@ -167,7 +155,13 @@ export const Home = () => {
               {genres.map((item) => (
                 <div
                   className="genre-item"
-                  onClick={() => goToMovieByGenre(item.id, item.name)}
+                  style={{
+                    backgroundColor:
+                      item.id === genreId
+                        ? "rgba(158,7,33,0.68)"
+                        : "rgba(135,135,135,0.68)",
+                  }}
+                  onClick={() => handleGenreId(item.id, item.name)}
                 >
                   {item.name}
                 </div>
