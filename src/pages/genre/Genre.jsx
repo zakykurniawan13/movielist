@@ -5,9 +5,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { Layout } from "../../layout/Layout";
 import axios from "axios";
-import foto1 from "../../assets/images/foto1.png";
 
-export const Genre = () => {
+export const Genre = (props) => {
+  const { handleLogout } = props
+
   let navigate = useNavigate();
   //untuk mengambil data yang di lempar dari navigasi
   const { state } = useLocation();
@@ -91,7 +92,7 @@ export const Genre = () => {
   }, [genreId]);
 
   return (
-    <Layout>
+    <Layout handleLogout={handleLogout}>
       <div className="main-container">
         <div className="main-left">
           <div className="main-home-trending">

@@ -5,6 +5,7 @@ import { NavigationBar } from '../Component/NavigationBar/NavigationBar';
 import React from 'react'
 
 export const Layout = (props) => {
+  const { handleLogout } = props
   return (
     <div className="layout-wrapper">
       {/* <div className="item1">
@@ -14,7 +15,7 @@ export const Layout = (props) => {
       </div>
       <div className="item3">{props.children}</div> */}
       <div className="item-left">
-          <NavigationBar />
+          <NavigationBar handleLogout={handleLogout} />
       </div>
       <div className="item-right">
         <Header/>

@@ -8,7 +8,8 @@ import axios from "axios";
 import foto1 from "../../assets/images/foto1.png";
 import searchLogo from "../../assets/images/search.png";
 
-export const Search = () => {
+export const Search = (props) => {
+  const { handleLogout } = props
   //untuk berpindah halaman
   let navigate = useNavigate();
   //
@@ -55,7 +56,7 @@ export const Search = () => {
   }, [searchMovieName]);
 
   return (
-    <Layout>
+    <Layout handleLogout={handleLogout}>
       <div className="main-container">
         <div className="main-left">
           <div className="input">

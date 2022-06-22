@@ -3,17 +3,12 @@ import "./Home.scss";
 import React, { useEffect, useState } from "react";
 
 import { Layout } from "../../layout/Layout";
-import armydeadmovie from "../../assets/images/armydead.jpg";
 import axios from "axios";
-import brightmovie from "../../assets/images/bright.jpg";
-import extraction2movie from "../../assets/images/extraction2.jpg";
-import extractionmovie from "../../assets/images/extraction.jpg";
 import foto1 from "../../assets/images/foto1.png";
-import rednoticemovie from "../../assets/images/red notice.jpg";
-import spidermanmovie from "../../assets/images/spiderman.jpg";
 import { useNavigate } from "react-router-dom";
 
-export const Home = () => {
+export const Home = (props) => {
+  const { handleLogout } = props
   //untuk berpindah halaman
   let navigate = useNavigate();
   //
@@ -96,7 +91,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout handleLogout={handleLogout}>
       <div className="main-container">
         <div className="main-left">
           <div className="main-home">

@@ -6,7 +6,8 @@ import { Layout } from "../../layout/Layout";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-export const Detail = () => {
+export const Detail = (props) => {
+  const { handleLogout } = props
   //untuk mengambil data yang di lempar dari navigasi
   const { state } = useLocation();
   const { id } = state;
@@ -83,7 +84,7 @@ export const Detail = () => {
     getCredit();
   }, []);
   return (
-    <Layout>
+    <Layout handleLogout={handleLogout}>
       <div className="main-detail-container">
         <img className="main-detail-extraction" src={`https://image.tmdb.org/t/p/w500${detailMovie.backdrop_path}`} />
         <div className="main-detail">

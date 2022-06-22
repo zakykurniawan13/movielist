@@ -11,7 +11,8 @@ import settings from "../../assets/images/settings.png";
 import { useNavigate } from "react-router-dom";
 import vectorlogo from "../../assets/images/Vector.png";
 
-export const NavigationBar = () => {
+export const NavigationBar = (props) => {
+  const {handleLogout} =props
   //untuk berpindah halaman
   let navigate = useNavigate();
   //
@@ -106,6 +107,17 @@ export const NavigationBar = () => {
             }}
           >
             Settings
+          </div>
+        </div>
+        <div className="navigation-bar-menu-item" onClick={handleLogout}>
+          <img className="navigation-bar-menu-item-logo" src={settings} />
+          <div
+            className="navigation-bar-menu-item-title"
+            style={{
+              color: "#878787",
+            }}
+          >
+            Logout
           </div>
         </div>
       </div>

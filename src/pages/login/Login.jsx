@@ -3,8 +3,10 @@ import "./login.scss";
 import React, { useState } from "react";
 
 import Backgroundimage from "../../assets/images/gunung.jpg";
+import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login = (props) => {
+  const { handleLogin } = props
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -15,15 +17,6 @@ export const Login = () => {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  const handleSubmit = () => {
-    if (email === "zaki@gmail.com" && password === "12345") {
-      alert("Login Success");
-    }
-    else {
-      alert("Login Failed");
-    }
-  }
 
   return (
     <div className="container-main">
@@ -39,7 +32,7 @@ export const Login = () => {
           <div className="text-input-container">
             <input className="text-input" type="password" placeholder="Password" onChange={handlePassword}/>
           </div>
-          <div className="login-btn" onClick={handleSubmit}>login</div>
+          <div className="login-btn" onClick={() => handleLogin(email, password)}>login</div>
         </div>
       </div>
     </div>
